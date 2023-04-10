@@ -19,16 +19,19 @@ void SLTPopBack(SLTNode** pphead);
 void SLTPushFront(SLTNode** pphead, SLTDataType x);
 void SLTPopFront(SLTNode** pphead);
 
-SLTNode* SListFind(SLTNode* plist, SLTDataType x);
+SLTNode* SLTFind(SLTNode* phead, SLTDataType x);
 
 // 单链表在pos位置之后插入x
 // 分析思考为什么不在pos位置之前插入？
-void SListInsertAfter(SLTNode* pos, SLTDataType x);
+void SLTInsertAfter(SLTNode* pos, SLTDataType x);
+
 // 单链表删除pos位置之后的值
 // 分析思考为什么不删除pos位置？
-void SListEraseAfter(SLTNode* pos);
+void SLTEraseAfter(SLTNode* pos);
 
 // 在pos之前插入x
-void SListInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x);
+void SLTInsert(SLTNode** pphead, SLTNode* pos, SLTDataType x);
 // 删除pos位置
-void SListErase(SLTNode** pphead, SLTNode* pos, SLTDataType x);
+void SLTErase(SLTNode** pphead, SLTNode* pos);
+
+void SLTDestory(SLTNode** pphead);
