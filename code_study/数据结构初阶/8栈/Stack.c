@@ -13,7 +13,7 @@ void StackInit(ST* ps)
 		exit(-1);
 	}
 
-	ps->capacity = 0;
+	ps->capacity = 4;
 	ps->top = 0;
 }
 
@@ -29,7 +29,7 @@ void StackDestroy(ST* ps)
 
 // 入栈
 void StackPush(ST* ps, STDataType data)
-{
+{	
 	assert(ps);
 	//扩容
 	if (ps->top == ps->capacity)
@@ -54,22 +54,24 @@ void StackPop(ST* ps)
 	assert(!StackEmpty(ps));
 	ps->top--;
 }
-
-// 检测栈是否为空，如果为空返回非零结果，如果不为空返回0 
-int StackEmpty(ST* ps)
-{
-	assert(ps);
-	return ps->top = 0;
-}
-
 // 获取栈顶元素
 STDataType StackTop(ST* ps)
 {
 	assert(ps);
 	assert(!StackEmpty(ps));
-	return ps->top - 1;
+	return ps->a[ps->top - 1];
 }
 
+// 检测栈是否为空，如果为空返回非零结果，如果不为空返回0 
+bool StackEmpty(ST* ps)
+{
+	assert(ps);
+	return ps->top == 0;
+}
+
+
+
+//获取栈中有效元素个数
 int StackSize(ST* ps)
 {
 	assert(ps);
