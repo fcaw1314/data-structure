@@ -20,6 +20,26 @@ void HeapInit(HP* hph)
 	hph->capacity = hph->size = 0;
 }
 
+//堆的创建
+void HeapCreat(HP* hph, HPDataType* a, int n)
+{
+	assert(hph);
+	hph->a = (HPDataType*)malloc(sizeof(HPDataType) * n);
+	if (hph->a == NULL)
+	{
+		perror("malloc fail:");
+		exit(-1);
+	}
+	memcpy(hph->a, a, sizeof(HPDataType) * n);
+	hph->size = hph->capacity = n;
+
+	//建堆算法
+	for (int i = (n - 1 - 1) / 2; i >= 0; --i)
+	{
+		AdjustDown(hph->a, n, i);
+	}
+}
+
 //堆的销毁
 void HeapDestory(HP* hph)
 {
@@ -29,6 +49,7 @@ void HeapDestory(HP* hph)
 	hph->capacity = 0;
 	hph->size = 0;
 }
+
 void Swap(HPDataType* p1, HPDataType* p2)
 {
 	int tmp = *p1;
@@ -36,7 +57,7 @@ void Swap(HPDataType* p1, HPDataType* p2)
 	*p2 = tmp;
 }
 
-//向下调整
+//向上调整
 //child和parent都是下标
 void AdjusUp(HPDataType* a, int child)
 {
@@ -76,22 +97,22 @@ void HeapPush(HP* hph, HPDataType x)
 	hph->a[hph->size] = x;
 	hph->size++;
 
-	//向下调整
+	//向上调整
 	AdjusUp(hph->a, hph->size - 1);
 }
 
-//向上调整
+//向下调整
 void AdjustDown(HPDataType* a, int n, int parent)
 {
 	int child = parent * 2 + 1;
 	while (child < n)
 	{
-		if (child + 1< n && a[child] < a[child + 1])
+		if (child + 1< n && a[child + 1] < a[child])
 		{
 			child = child + 1;
 		}
 		//child 大于 parent 就交换
-		if (a[child] > a[parent])
+		if (a[child] < a[parent])
 		{
 			Swap(&a[child], &a[parent]);
 			parent = child;

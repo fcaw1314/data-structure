@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef int HPDataType;
 typedef struct heap
@@ -14,6 +15,9 @@ typedef struct heap
 
 //堆的初始化
 void HeapInit(HP* hph);
+
+//堆的创建
+void HeapCreat(HP* hph, HPDataType* a, int n);
 
 //堆的销毁
 void HeapDestory(HP* hph);
@@ -35,3 +39,12 @@ int HeapSize(HP* hph);
 
 // 堆的判空
 int HeapEmpty(HP* hph);
+
+//向上调整
+//child和parent都是下标
+void AdjusUp(HPDataType* a, int child);
+
+//向下调整
+void AdjustDown(HPDataType* a, int n, int parent);
+
+void Swap(HPDataType* p1, HPDataType* p2);
