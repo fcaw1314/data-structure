@@ -117,7 +117,75 @@ void TestHeap5()
 	fclose(fp);
 }
 
+void TestHeap6()
+{
+	// 造数据
+	int n, k;
+	printf("请输入n和k:>");
+	scanf("%d%d", &n, &k);
+	srand(time(0));
+	FILE* fin = fopen("Data1.txt", "w");
+	if (fin == NULL)
+	{
+		perror("fopen fail");
+		return;
+	}
 
+	int randK = k;
+	for (size_t i = 0; i < n; ++i)
+	{
+		int val = rand() % 10;
+		fprintf(fin, "%d\n", val);
+	}
+
+	fclose(fin);
+
+	/////////////////////////////////////////////////////////////////////////////////////////
+	// 找topk
+	FILE* fout = fopen("Data1.txt", "r");
+	if (fout == NULL)
+	{
+		perror("fopen fail");
+		return;
+	}
+
+	//int minHeap[5];
+	int* minHeap = malloc(sizeof(int) * k);
+	if (minHeap == NULL)
+	{
+		perror("malloc fail");
+		return;
+	}
+
+	for (int i = 0; i < k; ++i)
+	{
+		fscanf(fout, "%d", &minHeap[i]);
+	}
+
+	// 建小堆
+	for (int i = (k - 1 - 1) / 2; i >= 0; --i)
+	{
+		AdjustDown(minHeap, k, i);
+	}
+
+	int val = 0;
+	while (fscanf(fout, "%d", &val) != EOF)
+	{
+		if (val > minHeap[0])
+		{
+			minHeap[0] = val;
+			AdjustDown(minHeap, k, 0);
+		}
+	}
+
+	for (int i = 0; i < k; ++i)
+	{
+		printf("%d ", minHeap[i]);
+	}
+	printf("\n");
+
+	fclose(fout);
+}
 int main()
 {
 	TestHeap4();
