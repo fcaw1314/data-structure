@@ -28,4 +28,5 @@ int TreeSize(BTNode* root);
 //返回叶子结点个数
 int TreeleafSize(BTNode* root);
 
-
+//返回树的深度
+int TreeHeight(BTNode* root);
