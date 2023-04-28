@@ -6,16 +6,19 @@
 
 int main()
 {
+	//¹¹Ôì¶þ²æÊ÷
 	BTNode* n1 = BuyNode(1);
 	BTNode* n2 = BuyNode(2);
 	BTNode* n3 = BuyNode(3);
 	BTNode* n4 = BuyNode(4);
 	BTNode* n5 = BuyNode(5);
 	BTNode* n6 = BuyNode(6);
+	BTNode* n7 = BuyNode(7);
 
 	n1->left = n2;
 	n1->right = n4;
 	n2->left = n3;
+	n3->left = n7;
 	n4->left = n5;
 	n4->right = n6;
 
@@ -29,6 +32,9 @@ int main()
 
 	printf("TreeSize: %d \n", TreeSize(n1));
 	printf("TreeleafSize: %d \n", TreeleafSize(n1));
+	printf("TreeHeight: %d \n", TreeHeight(n1));
+	printf("TreeKLevelSize: %d \n", TreeKLevelSize(n1,4));
+
 
 	return 0;
 }

@@ -79,5 +79,19 @@ int TreeleafSize(BTNode* root)
 //返回树的深度
 int TreeHeight(BTNode* root)
 {
+	if (root == NULL)
+		return 0;
+	int leafHeight = TreeHeight(root->left);
+	int rightHeight = TreeHeight(root->right);
+	return leafHeight > rightHeight ? leafHeight + 1 : rightHeight + 1;
+}
 
+//第k层的结点个数 k >= 1
+int TreeKLevelSize(BTNode* root, int k)
+{
+	if (root == NULL)
+		return 0;
+	if (k == 1)
+		return 1;
+	return TreeKLevelSize(root->left, k - 1) + TreeKLevelSize(root->right, k - 1);
 }

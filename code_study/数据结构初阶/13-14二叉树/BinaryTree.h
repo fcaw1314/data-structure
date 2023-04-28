@@ -30,3 +30,6 @@ int TreeleafSize(BTNode* root);
 
 //返回树的深度
 int TreeHeight(BTNode* root);
+
+//第k层的结点个数 k >= 1
+int TreeKLevelSize(BTNode* root, int k);
