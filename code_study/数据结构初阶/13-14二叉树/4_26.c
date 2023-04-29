@@ -34,6 +34,8 @@ int main()
 	printf("TreeleafSize: %d \n", TreeleafSize(n1));
 	printf("TreeHeight: %d \n", TreeHeight(n1));
 	printf("TreeKLevelSize: %d \n", TreeKLevelSize(n1,4));
+	printf("TreeFind: %d \n", TreeFind(n1, 7)->data);
+
 
 
 	return 0;

@@ -33,3 +33,9 @@ int TreeHeight(BTNode* root);
 
 //第k层的结点个数 k >= 1
 int TreeKLevelSize(BTNode* root, int k);
+
+//二叉树查找值为x的值
+BTNode* TreeFind(BTNode* root, BTDataType x);
+
+// 二叉树销毁
+void TreeDestory(BTNode* root);

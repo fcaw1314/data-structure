@@ -1,7 +1,7 @@
-
 #define _CRT_SECURE_NO_WARNINGS 1
 
 #include "BinaryTree.h"
+
 
 BTNode* BuyNode(BTDataType x)
 {
@@ -95,3 +95,38 @@ int TreeKLevelSize(BTNode* root, int k)
 		return 1;
 	return TreeKLevelSize(root->left, k - 1) + TreeKLevelSize(root->right, k - 1);
 }
+
+//二叉树查找值为x的值
+BTNode* TreeFind(BTNode* root, BTDataType x)
+{
+	if (root == NULL)
+		return NULL;
+	if (root->data == x)
+		return root;
+	BTNode* ret1 = TreeFind(root->left, x);
+	if (ret1)
+		return ret1;
+	BTNode* ret2 = TreeFind(root->right, x);
+	if(ret2)
+		return ret2;
+		
+	return NULL;
+}
+
+// 二叉树销毁
+void TreeDestory(BTNode* root)
+{
+	if (root == NULL)
+		return;
+	TreeDestory(root->left);
+	TreeDestory(root->right);
+	free(root);
+
+}
+
+
+////层序遍历
+//void LevelOrder(BTNode* root)
+//{
+//
+//}
