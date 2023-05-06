@@ -345,3 +345,169 @@ void QuickSortNonR(int* a, int begin, int end)
 
 	StackDestroy(&st);
 }
+
+
+void _MergeSort(int* a ,int begin ,int end,int* tmp)
+{
+	if (begin >= end)
+		return;
+	int mid = (begin + end) / 2;
+	//[begin , mid] [ mid +1 , end] 递归子区间有序
+	_MergeSort(a, begin, mid, tmp);
+	_MergeSort(a, mid + 1, end, tmp);
+
+	//归并
+	int begin1 = begin;
+	int end1 = mid;
+	int begin2 = mid + 1;
+	int end2 = end;
+	int i = begin;
+	while (begin1 <= end1 && begin2 <= end2)
+	{
+		if (a[begin1] <= a[begin2])
+		{
+			tmp[i++] = a[begin1++];
+		}
+		else
+		{
+			tmp[i++] = a[begin2++];
+		}
+	}
+	while (begin1 <= end1)
+	{
+		tmp[i++] = a[begin1++];
+	}
+	while (begin2 <= end2)
+	{
+		tmp[i++] = a[begin2++];
+	}
+	memcpy(a + begin, tmp + begin, sizeof(int) * (end - begin + 1));
+}
+
+//归并排序
+void MergeSort(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc: fail ");
+		exit(-1);
+	}
+
+	_MergeSort(a, 0, n - 1, tmp);
+	free(tmp);
+	tmp = NULL;
+}
+
+//归并非递归排序
+void MergeSortNonR(int* a, int n)
+{
+	int* tmp = (int*)malloc(sizeof(int) * n);
+	if (tmp == NULL)
+	{
+		perror("malloc: fail ");
+		exit(-1);
+	}
+
+	// 归并每组数据个数，从1开始，
+	//因为1个认为是有序的，可以直接归并
+	int rangeN = 1;
+	while (rangeN < n)
+	{
+		for (int i = 0; i < n; i += 2 * rangeN)
+		{
+			// [begin1,end1]  [begin2,end2] 归并
+			int begin1 = i; 
+			int end1 = i + rangeN - 1;
+			int begin2 = i + rangeN;
+			int end2 = i + 2 * rangeN - 1;
+			int j = i;
+
+			//end1越界
+			if(end1 >=n)
+			{
+				end1 = n - 1;
+				begin2 = n;
+				end2 = n - 1;
+			}
+			//begin2 , end2越界
+			else if (begin2 >= n)
+			{
+				begin2 = n;
+				end2 = n - 1;
+			}
+			//end2越界
+			else if (end2 >= n)
+			{
+				end2 = n - 1;
+			}
+			while (begin1 <= end1 && begin2 <= end2)
+			{
+				if (a[begin1] <= a[begin2])
+				{
+					tmp[j++] = a[begin1++];
+				}
+				else
+				{
+					tmp[j++] = a[begin2++];
+				}
+			}
+			while (begin1 <= end1)
+			{
+				tmp[j++] = a[begin1++];
+			}
+			while (begin2 <= end2)
+			{
+				tmp[j++] = a[begin2++];
+			}
+			memcpy(a + i, tmp + i, sizeof(int) * (end2 - i + 1));
+		}
+		rangeN *= 2;
+	}
+	free(tmp);
+	tmp = NULL;
+}
+
+
+//快速排序针对相同数据的优化
+//三路划分解决
+//详解已经发到gitee
+
+
+//计数排序
+void CountSort(int* a, int n)
+{
+	int max = a[0], min = a[0];
+	//找出最大值，最小值
+	for (int i = 1; i < n; ++i)
+	{
+		if (a[i] < min)
+			min = a[i];
+		if (a[i] > max)
+			max = a[i];
+	}
+	//开一个数组
+	int range = max - min + 1;
+	int* countArr = (int*)calloc(range, sizeof(int) * range);
+	if (countArr == NULL)
+	{
+		perror("calloc fail");
+		exit(-1);
+	}
+	//1.统计次数
+	for (int i = 0; i < n; ++i)
+	{
+		countArr[a[i] - min]++;
+	}
+	//2.排序
+	int k = 0;
+	for (int i = 0; i < range; ++i)
+	{
+		while (countArr[i]--)
+		{
+			a[k++] = i + min;
+		}
+	}
+	free(countArr);
+
+}

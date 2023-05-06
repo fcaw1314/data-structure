@@ -38,6 +38,14 @@ void BubbleSortText()
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
 
+
+void QuickSortText()
+{
+	int a[] = { 6,1,2,7,9,3,4,5,8,10,8 };
+	QuickSort(a, 0, sizeof(a) / sizeof(int) - 1);
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
+
 void QuickSortNonRText()
 {
 	int a[] = { 6,1,2,7,9,3,4,5,8,10,8 };
@@ -45,12 +53,33 @@ void QuickSortNonRText()
 	PrintArray(a, sizeof(a) / sizeof(int));
 }
 
+void MergeSortText()
+{
+	int a[] = { 6,1,2,7,9,3,4,5,8,10,8 };
+	MergeSort(a, sizeof(a) / sizeof(int));
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
+
+void MergeSortNonRText()
+{
+	int a[] = { 6,1,2,7,9,3,4,5,8,10,8 };
+	//int a[] = { 10,6,7,1,3,9,4,2 };
+	MergeSortNonR(a, sizeof(a) / sizeof(int));
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
+
+void CountSortText()
+{
+	int a[] = { -9, -1, 2, 5, 7, 4, 8, 6, 3, 5,1,2,3,3,3,-9 };
+	CountSort(a, sizeof(a) / sizeof(int));
+	PrintArray(a, sizeof(a) / sizeof(int));
+}
 
 // 测试排序的性能对比
 void TestOP()
 {
 	srand((unsigned int)time(0));
-	const int N = 100000;
+	const int N = 1000000;
 	int* a1 = (int*)malloc(sizeof(int) * N);
 	int* a2 = (int*)malloc(sizeof(int) * N);
 	int* a3 = (int*)malloc(sizeof(int) * N);
@@ -61,8 +90,8 @@ void TestOP()
 
 	for (int i = 0; i < N; ++i)
 	{
-		//a1[i] = rand();
-		a1[i] = i;
+		a1[i] = rand();
+		//a1[i] = i;
 		a2[i] = a1[i];
 		a3[i] = a1[i];
 		a4[i] = a1[i];
@@ -96,7 +125,7 @@ void TestOP()
 	int end5 = clock();
 
 	int begin6 = clock();
-	//MergeSort(a6, N);
+	MergeSort(a6, N);
 	int end6 = clock();
 
 	printf("InsertSort:%d\n", end1 - begin1);
@@ -120,7 +149,12 @@ int main()
 	//HeapSortText();
 	//SleectSortText();
 	//BubbleSortText();
-	QuickSortNonRText();
+	//QuickSortText();
+	
+	// QuickSortNonRText();
+	//MergeSortText();
+	CountSortText();
+	//MergeSortNonRText();
 	//TestOP();
 	return 0;
 }

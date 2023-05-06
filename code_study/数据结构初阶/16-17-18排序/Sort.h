@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <string.h>
 
 //打印
 void PrintArray(int* a, int n);
@@ -32,3 +33,12 @@ void QuickSort(int* a,int begin , int end);
 
 //快速排序(非递归)
 void QuickSortNonR(int* a, int begin, int end);
+
+//归并排序
+void MergeSort(int* a, int n);
+
+//归并非递归排序
+void MergeSortNonR(int* a, int n);
+
+//计数排序
+void CountSort(int* a, int n);
